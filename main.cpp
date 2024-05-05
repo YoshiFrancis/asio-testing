@@ -1,6 +1,6 @@
 #include "chat_message.hpp"
-#include "connection.hpp"
-#include "game_room.hpp"
+#include "connection.h"
+#include "game_room.h"
 #include <iostream>
 
 
