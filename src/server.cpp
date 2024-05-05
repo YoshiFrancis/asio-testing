@@ -1,12 +1,6 @@
 #include "server.h"
 #include "connection.h" // Assuming this is needed for connection class
 
-server::server(asio::io_context& io_context, tcp::endpoint& endpoint)
-    : m_acceptor(io_context, endpoint)
-{
-    do_accept();
-}
-
 void server::do_accept()
 {
     m_acceptor.async_accept(

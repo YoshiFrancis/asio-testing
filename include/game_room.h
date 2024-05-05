@@ -5,10 +5,11 @@
 
 #include "asio.hpp"
 #include "chat_message.hpp"
-#include "connection.h"
 #include <deque>
 #include <memory>
 #include <list>
+
+class connection;
 
 using asio::ip::tcp;
 typedef std::deque<message> message_deque;

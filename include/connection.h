@@ -15,6 +15,8 @@
 using asio::ip::tcp;
 typedef std::deque<message> message_deque;
 
+class game_room;
+
 class connection : public std::enable_shared_from_this<connection>
 {
 public:
@@ -27,13 +29,11 @@ public:
 public:
     connection(tcp::socket socket, game_room& room, owner owner_type);
 
-    void connect(tcp::resolver::results_type& endpoints);
     void disconnect();
     void deliver(message msg);
     void start();
 
 private:
-    void handle_connect(std::error_code& ec, tcp::endpoint endpoint);
     void write();
     void readHeader();
     void readBody();

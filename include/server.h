@@ -12,7 +12,12 @@ using asio::ip::tcp;
 class server
 {
 public:
-    server(asio::io_context& io_context, tcp::endpoint& endpoint);
+    server(asio::io_context& io_context, tcp::endpoint& endpoint)
+			: m_acceptor(io_context, endpoint)
+		{
+			do_accept();
+		}
+		~server() {}
 
 private:
     tcp::acceptor m_acceptor;

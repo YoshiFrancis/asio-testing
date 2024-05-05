@@ -1,13 +1,10 @@
 #include "connection.h"
 
+std::vector<uint8_t> testing(128);
+
 connection::connection(tcp::socket socket, game_room& room, owner owner_type)
     : m_socket(std::move(socket)), m_room(room), m_owner(std::move(owner_type))
 {
-}
-
-void connection::connect(tcp::resolver::results_type& endpoints)
-{
-    async_connect(m_socket, endpoints, connection::handle_connect);
 }
 
 void connection::disconnect()
@@ -30,18 +27,10 @@ void connection::start()
     readHeader();
 }
 
-void connection::handle_connect(std::error_code& ec, tcp::endpoint endpoint)
-{
-    if (!ec)
-    {
-        readHeader();
-    }
-}
-
 void connection::write()
 {
-    async_write(m_socket, asio::buffer(msg_queue_out.front().body().data(), msg_queue_out.front().size()),
-        [this](std::error_code& ec, size_t len)
+    async_write(connection::m_socket, asio::buffer(testing),
+        [this](const std::error_code& ec, size_t len)
         {
             if (!ec)
             {
@@ -58,7 +47,7 @@ void connection::write()
 void connection::readHeader()
 {
     async_read(m_socket, asio::buffer(&tmpMsgIn.header, sizeof(tmpMsgIn.header)),
-        [this](std::error_code& ec, size_t len)
+        [this](const std::error_code& ec, size_t len)
         {
             if (!ec)
             {
@@ -74,7 +63,7 @@ void connection::readHeader()
 void connection::readBody()
 {
     async_read(m_socket, asio::buffer(tmpMsgIn.body.data(), tmpMsgIn.body.size()),
-        [this](std::error_code& ec, size_t len)
+        [this](const std::error_code& ec, size_t len)
         {
             if (!ec)
             {

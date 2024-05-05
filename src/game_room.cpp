@@ -1,5 +1,5 @@
 #include "game_room.h"
-
+#include "connection.h"
 void game_room::join(connection_ptr conn)
 {
     m_connections.push_back(conn);
@@ -8,7 +8,7 @@ void game_room::join(connection_ptr conn)
 void game_room::leave(connection_ptr conn)
 {
     conn->disconnect();
-    msg_queue_in.erase(conn.get());
+    //msg_queue_in.erase(conn.get());
 }
 
 void game_room::send(connection_ptr conn, const message& message)
