@@ -11,6 +11,7 @@ void connection::disconnect()
 
 void connection::deliver(message msg)
 {
+	std::cout << "delivering msg to connection!\n";
     msg_queue_out.push_back(std::move(msg));
     if (msg_queue_out.empty())
     {
@@ -52,6 +53,7 @@ void connection::readHeader()
             {
 							tmpMsgIn.header = _deserialize_header(tmpMsgHeaderBuffer);
 							tmpMsgIn.body.resize(tmpMsgIn.size());
+							std::cout << tmpMsgIn.header.flag << " " << tmpMsgIn.header.size << "\n";
 							readBody();
             }
             else
@@ -59,6 +61,7 @@ void connection::readHeader()
 							std::cout << "Reading Header: " << ec.message() << "\n";
 							if (m_owner == owner::client)
 							{
+								std::cout << "disconnecting the in the readHeader\n";
 								disconnect();
 							}
             }
@@ -68,18 +71,21 @@ void connection::readHeader()
 void connection::readBody()
 {
     auto self(shared_from_this());
-    async_read(m_socket, asio::buffer(tmpMsgIn.body.data(), tmpMsgIn.body.size()),
-        [this](const std::error_code& ec, size_t len)
+		std::cout << tmpMsgIn.header.flag << " " << tmpMsgIn.header.size << "\n";
+    async_read(m_socket, asio::buffer(tmpMsgIn.body.data(), tmpMsgIn.header.size),
+        [this, self](const std::error_code& ec, size_t len)
         {
-            if (!ec)
-            {
-								m_room.sendAll(tmpMsgIn);
-                readHeader();
-            }
-            else
-            {
-                disconnect();
-            }
+					std::cout << tmpMsgIn << "\n";
+					if (!ec)
+					{
+						m_room.sendAll(tmpMsgIn);
+						readHeader();
+					}
+					else
+					{
+						std::cout << "disconnecting in the readBody\n";
+						disconnect();
+					}
         });
 }
 

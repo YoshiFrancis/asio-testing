@@ -1,5 +1,7 @@
 #include "client.h"
 
+static std::vector<uint8_t> _serialize(const message& message);
+static message_header _deserialize_header(const std::vector<uint8_t>& buffer);
 
 void client::connect(tcp::resolver::results_type& endpoint)
 {
@@ -24,6 +26,7 @@ void client::disconnect()
 
 void client::deliver(message message)
 {
+	message.header.flag = 'P';
 	asio::post(m_io_context, 
 		[this, message]()
 		{
@@ -38,17 +41,20 @@ void client::deliver(message message)
 
 void client::readHeader()
 {
-    async_read(m_socket, asio::buffer(&m_tmp_msg_in.header, sizeof(m_tmp_msg_in.header)),
-        [this](std::error_code ec, size_t len)
+		std::vector<uint8_t> buffer(sizeof(message_header));
+    async_read(m_socket, asio::buffer(buffer, sizeof(message_header)),
+        [this, &buffer](std::error_code ec, size_t len)
         {
 					if (!ec)
 					{
+						m_tmp_msg_in.header = _deserialize_header(buffer);
+						m_tmp_msg_in.body.resize(m_tmp_msg_in.size());
 						readBody();
 					}
 					else
 					{
 						disconnect();
-						std::cout << "Disconnecting from server due to reading error!\n";
+						std::cout << "Disconnecting from server due to reading header error!\n";
 					}
         });
 }
@@ -73,7 +79,7 @@ void client::readBody()
 
 void client::write()
 {
-	async_write(m_socket, asio::buffer(m_msg_queue_out.front().body.data(), m_msg_queue_out.front().body.size()),
+	async_write(m_socket, asio::buffer(_serialize(m_msg_queue_out.front()).data(), sizeof(m_msg_queue_out.front())),
 			[this](std::error_code ec, size_t len)
 			{
 				if (!ec)
@@ -87,4 +93,18 @@ void client::write()
 				std::cout << "Disconnecting from server due to sending error!\n";
 			}
 	});
+}
+
+static std::vector<uint8_t> _serialize(const message& message)
+{
+	std::vector<uint8_t> buffer(sizeof(message));
+	std::memcpy(buffer.data(), &message, sizeof(message));
+	return buffer;
+}
+
+static message_header _deserialize_header(const std::vector<uint8_t>& buffer)
+{
+	message_header header{};
+	std::memcpy(&header, buffer.data(), sizeof(header));
+	return header;
 }
