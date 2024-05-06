@@ -4,6 +4,21 @@
 #include <iostream>
 
 
+std::vector<uint8_t> serialize(const message& message)
+{
+	std::vector<uint8_t> buffer (sizeof(message));
+	std::memcpy(buffer.data(), &message, sizeof(message));
+	return buffer;
+}
+
+message_header deserialize_header(const std::vector<uint8_t>& buffer)
+{
+	message_header header{};
+	std::memcpy(&header, buffer.data(), sizeof(message_header));
+	return header;
+}
+
+
 int main(int argc, char* argv[]) 
 {
 
@@ -13,8 +28,12 @@ int main(int argc, char* argv[])
 	msg << testing;
 	std::string testing_str;
 	std::cout << msg << "\n";
-	msg >> testing_str;
-	std::cout << testing_str << "\n";
+	auto buffer = serialize(msg);
+	for (auto c : buffer)
+		std::cout << c;
+	std::cout << "\n";
+	message_header header = deserialize_header(buffer);
+	std::cout << header.flag << " " << header.size << "\n";
 	
 	return 1;
 }

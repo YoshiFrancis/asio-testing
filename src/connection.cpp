@@ -1,5 +1,7 @@
 #include "connection.h"
 
+static std::vector<uint8_t> _serialize(const message& msg);
+static message_header _deserialize_header(const std::vector<uint8_t>& buffer);
 std::vector<uint8_t> testing(128);
 
 void connection::disconnect()
@@ -23,7 +25,8 @@ void connection::start()
 
 void connection::write()
 {
-    async_write(connection::m_socket, asio::buffer(testing),
+		
+    async_write(connection::m_socket, asio::buffer(_serialize(msg_queue_out.front()).data(), sizeof(msg_queue_out.front())),
         [this](const std::error_code& ec, size_t len)
         {
             if (!ec)
@@ -41,12 +44,14 @@ void connection::write()
 void connection::readHeader()
 {
     auto self(shared_from_this());
-    async_read(m_socket, asio::buffer(testing, testing.size()),
+		tmpMsgHeaderBuffer.resize(sizeof(message_header));
+    async_read(m_socket, asio::buffer(tmpMsgHeaderBuffer.data(), sizeof(message_header)),
         [this, self](const std::error_code ec, size_t len)
         {
             if (!ec)
             {
-							std::cout << "Attempting to read here!!\n";
+							tmpMsgIn.header = _deserialize_header(tmpMsgHeaderBuffer);
+							tmpMsgIn.body.resize(tmpMsgIn.size());
 							readBody();
             }
             else
@@ -77,3 +82,19 @@ void connection::readBody()
             }
         });
 }
+
+static std::vector<uint8_t> _serialize(const message& msg)
+{
+	std::vector<uint8_t> buffer(sizeof(msg));
+	std::memcpy(buffer.data(), &msg, sizeof(msg));
+	return buffer;
+}
+
+static message_header _deserialize_header(const std::vector<uint8_t>& buffer)
+{
+	message_header header{};
+	std::memcpy(&header, buffer.data(), sizeof(message_header));
+	return header;
+}
+	
+	

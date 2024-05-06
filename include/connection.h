@@ -44,7 +44,8 @@ private:
 private:
     message_deque msg_queue_in{};
     message_deque msg_queue_out{};
-    message tmpMsgIn;
+    message tmpMsgIn{};
+		std::vector<uint8_t> tmpMsgHeaderBuffer;
     game_room m_room;
     tcp::socket m_socket;
     owner m_owner = owner::server;

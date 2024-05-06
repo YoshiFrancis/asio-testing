@@ -22,8 +22,16 @@ int main(int argc, char* argv[])
 		auto endpoints = resolver.resolve(argv[1], argv[2]);
 		client c(io_context, endpoints);
 		std::thread t([&io_context]() { io_context.run(); });
-		io_context.run();
-
+		
+		std::string input{};
+		while (std::getline(std::cin, input))
+		{
+			message msg{};
+			msg << input;
+			c.deliver(msg);
+		}
+		t.join();
+		c.disconnect();
 	}
 	catch(std::exception& e)
 	{
