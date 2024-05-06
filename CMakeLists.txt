@@ -12,6 +12,8 @@ add_subdirectory(src)
 
 add_executable(main main.cpp)
 add_executable(server_main server_main.cpp)
+add_executable(client_main client_main.cpp)
 target_link_libraries(server_main PUBLIC server)
+target_link_libraries(client_main PUBLIC client)
 #target_link_libraries(main PUBLIC server)
 

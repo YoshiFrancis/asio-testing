@@ -2,11 +2,6 @@
 
 std::vector<uint8_t> testing(128);
 
-connection::connection(tcp::socket socket, game_room& room, owner owner_type)
-    : m_socket(std::move(socket)), m_room(room), m_owner(std::move(owner_type))
-{
-}
-
 void connection::disconnect()
 {
     m_socket.close();
@@ -24,7 +19,7 @@ void connection::deliver(message msg)
 
 void connection::start()
 {
-    readHeader();
+	readHeader();
 }
 
 void connection::write()
@@ -46,27 +41,35 @@ void connection::write()
 
 void connection::readHeader()
 {
-    async_read(m_socket, asio::buffer(&tmpMsgIn.header, sizeof(tmpMsgIn.header)),
-        [this](const std::error_code& ec, size_t len)
+    auto self(shared_from_this());
+    async_read(m_socket, asio::buffer(testing, testing.size()),
+        [this, self](const std::error_code ec, size_t len)
         {
             if (!ec)
             {
-                readBody();
+							std::cout << "Attempting to read here!!\n";
+							readBody();
             }
             else
-            {
-                disconnect();
+						{
+							std::cout << "Reading Header: " << ec.message() << "\n";
+							if (m_owner == owner::client)
+							{
+								disconnect();
+							}
             }
         });
 }
 
 void connection::readBody()
 {
+    auto self(shared_from_this());
     async_read(m_socket, asio::buffer(tmpMsgIn.body.data(), tmpMsgIn.body.size()),
         [this](const std::error_code& ec, size_t len)
         {
             if (!ec)
             {
+								m_room.sendAll(tmpMsgIn);
                 readHeader();
             }
             else

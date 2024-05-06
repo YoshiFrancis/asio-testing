@@ -1,7 +1,9 @@
 /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles/main.dir
 /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles/server_main.dir
+/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles/client_main.dir
 /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles/edit_cache.dir
 /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles/rebuild_cache.dir
 /Users/fozua/Desktop/ASIOTesting/build/src/CMakeFiles/server.dir
+/Users/fozua/Desktop/ASIOTesting/build/src/CMakeFiles/client.dir
 /Users/fozua/Desktop/ASIOTesting/build/src/CMakeFiles/edit_cache.dir
 /Users/fozua/Desktop/ASIOTesting/build/src/CMakeFiles/rebuild_cache.dir

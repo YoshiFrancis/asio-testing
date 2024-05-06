@@ -17,7 +17,11 @@ typedef std::deque<message> message_queue;
 class client
 {
 public:
-    client(asio::io_context& io_context, tcp::endpoint& endpoint);
+    client(asio::io_context& io_context, tcp::resolver::results_type& endpoint)
+			: m_io_context(io_context), m_socket(io_context)
+		{
+			connect(endpoint);
+		}
 
     void disconnect();
     void deliver(message message);
@@ -26,6 +30,7 @@ private:
     void readHeader();
     void readBody();
     void write();
+		void connect(tcp::resolver::results_type& endpoint);
 
 private:
     message_queue m_msg_queue_in{};

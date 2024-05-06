@@ -1,9 +1,20 @@
 #include "client.h"
 
-client::client(asio::io_context& io_context, tcp::endpoint& endpoint)
-    : m_io_context(io_context), m_socket(io_context, endpoint)
+
+void client::connect(tcp::resolver::results_type& endpoint)
 {
-    readHeader();
+	async_connect(m_socket, endpoint, 
+		[this](const std::error_code ec, tcp::endpoint)
+		{
+			if (!ec)
+			{
+				readHeader();
+			}
+			else 
+			{
+				std::cout << "Error connecting!\n";
+			}
+		});
 }
 
 void client::disconnect()

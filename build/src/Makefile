@@ -130,12 +130,51 @@ server/fast:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/build
 .PHONY : server/fast
 
+# Convenience name for target.
+src/CMakeFiles/client.dir/rule:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/client.dir/rule
+.PHONY : src/CMakeFiles/client.dir/rule
+
+# Convenience name for target.
+client: src/CMakeFiles/client.dir/rule
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/build
+.PHONY : client/fast
+
+client.o: client.cpp.o
+.PHONY : client.o
+
+# target to build an object file
+client.cpp.o:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/client.cpp.o
+.PHONY : client.cpp.o
+
+client.i: client.cpp.i
+.PHONY : client.i
+
+# target to preprocess a source file
+client.cpp.i:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/client.cpp.i
+.PHONY : client.cpp.i
+
+client.s: client.cpp.s
+.PHONY : client.s
+
+# target to generate assembly for a file
+client.cpp.s:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/client.cpp.s
+.PHONY : client.cpp.s
+
 connection.o: connection.cpp.o
 .PHONY : connection.o
 
 # target to build an object file
 connection.cpp.o:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.o
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.o
 .PHONY : connection.cpp.o
 
 connection.i: connection.cpp.i
@@ -144,6 +183,7 @@ connection.i: connection.cpp.i
 # target to preprocess a source file
 connection.cpp.i:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.i
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.i
 .PHONY : connection.cpp.i
 
 connection.s: connection.cpp.s
@@ -152,6 +192,7 @@ connection.s: connection.cpp.s
 # target to generate assembly for a file
 connection.cpp.s:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.s
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.s
 .PHONY : connection.cpp.s
 
 game_room.o: game_room.cpp.o
@@ -210,7 +251,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... client"
 	@echo "... server"
+	@echo "... client.o"
+	@echo "... client.i"
+	@echo "... client.s"
 	@echo "... connection.o"
 	@echo "... connection.i"
 	@echo "... connection.s"

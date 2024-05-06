@@ -143,6 +143,19 @@ server_main/fast:
 .PHONY : server_main/fast
 
 #=============================================================================
+# Target rules for targets named client_main
+
+# Build rule for target.
+client_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client_main
+.PHONY : client_main
+
+# fast build rule for target.
+client_main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/build
+.PHONY : client_main/fast
+
+#=============================================================================
 # Target rules for targets named server
 
 # Build rule for target.
@@ -154,6 +167,43 @@ server: cmake_check_build_system
 server/fast:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/build
 .PHONY : server/fast
+
+#=============================================================================
+# Target rules for targets named client
+
+# Build rule for target.
+client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 client
+.PHONY : client
+
+# fast build rule for target.
+client/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/build
+.PHONY : client/fast
+
+client_main.o: client_main.cpp.o
+.PHONY : client_main.o
+
+# target to build an object file
+client_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.o
+.PHONY : client_main.cpp.o
+
+client_main.i: client_main.cpp.i
+.PHONY : client_main.i
+
+# target to preprocess a source file
+client_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.i
+.PHONY : client_main.cpp.i
+
+client_main.s: client_main.cpp.s
+.PHONY : client_main.s
+
+# target to generate assembly for a file
+client_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.s
+.PHONY : client_main.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -211,9 +261,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... client"
+	@echo "... client_main"
 	@echo "... main"
 	@echo "... server"
 	@echo "... server_main"
+	@echo "... client_main.o"
+	@echo "... client_main.i"
+	@echo "... client_main.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -8,7 +8,11 @@ void game_room::join(connection_ptr conn)
 void game_room::leave(connection_ptr conn)
 {
     conn->disconnect();
-    //msg_queue_in.erase(conn.get());
+		m_connections.remove_if( 
+			[&conn](connection_ptr& ptr) 
+			{
+				return ptr.get() == conn.get();
+			});
 }
 
 void game_room::send(connection_ptr conn, const message& message)

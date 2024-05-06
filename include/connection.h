@@ -27,7 +27,10 @@ public:
     };
 
 public:
-    connection(tcp::socket socket, game_room& room, owner owner_type);
+    connection(tcp::socket socket, game_room& room, owner owner_type)
+			: m_socket(std::move(socket)), m_room(room), m_owner(std::move(owner_type))
+		{
+		}
 
     void disconnect();
     void deliver(message msg);
