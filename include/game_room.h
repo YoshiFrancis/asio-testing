@@ -7,7 +7,7 @@
 #include "chat_message.hpp"
 #include <deque>
 #include <memory>
-#include <list>
+#include <set>
 
 class connection;
 
@@ -25,7 +25,7 @@ public:
 
 private:
     message_deque msg_queue_in{};
-    std::list<connection_ptr> m_connections;
+    std::set<connection_ptr> m_connections;
 };
 
 #endif

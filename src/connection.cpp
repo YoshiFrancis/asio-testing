@@ -4,7 +4,6 @@ std::vector<uint8_t> testing(128);
 
 void connection::disconnect()
 {
-    m_socket.close();
     m_room.leave(shared_from_this());
 }
 
