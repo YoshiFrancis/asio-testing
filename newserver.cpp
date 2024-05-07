@@ -61,7 +61,7 @@ public:
   void start()
   {
     room_.join(shared_from_this());
-    Read();
+    ReadHeader();
   }
 
   void deliver(message msg)
@@ -80,7 +80,19 @@ private:
   std::deque<message> messageQ_;
   message buffer_;
 
-  void Read()
+  void ReadHeader()
+  {
+    auto self(shared_from_this());
+    asio::async_read(socket_, asio::buffer(&buffer_.header, buffer_.header_size()),
+    [this, self](std::error_code ec, size_t len)
+    {
+      if (!ec)
+      {
+        std::cout << "Read header size: " << buffer_.header.size << "\n";
+      }
+    });
+  }
+  void ReadBody()
   {
     auto self(shared_from_this());
     buffer_.setSize(5);
@@ -95,7 +107,7 @@ private:
           message_ += buffer_.body[i];
         std::cout << message_ << "\n";
         room_.deliverAll(buffer_);
-        Read();
+        ReadHeader();
       } 
       else
       {

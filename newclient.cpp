@@ -40,12 +40,24 @@ private:
         if (!ec)
         {
           std::cout << "Successfully connected!\n";
-          Read();   // begin reading
+          ReadHeader();   // begin reading
         }
       });
   }
 
-  void Read()
+  void ReadHeader()
+  {
+    asio::async_read(socket_, asio::buffer(&buffer_.header, buffer_.header_size()),
+    [this](std::error_code ec, size_t len)
+    {
+      if (!ec)
+      {
+        std::cout << "Read header size: " << buffer_.header.size << "\n";
+      }
+    });
+  }
+
+  void ReadBody()
   {
     buffer_.setSize(5);
     asio::async_read(socket_, asio::buffer(buffer_.body),
@@ -59,14 +71,14 @@ private:
             message_ += buffer_.body[i];
           }
           std::cout << "Message received: " << message_ << "\n";
-          Read();
+          ReadHeader();
         }
       });
   }
 
   void Write()
   {
-    asio::async_write(socket_, asio::buffer(msgQ_.front().body),
+    asio::async_write(socket_, asio::buffer(&msgQ_.front().header, msgQ_.front().header_size()),
     [this](std::error_code ec, size_t len)
     {
       if (!ec)
@@ -103,6 +115,7 @@ int main(int argc, char* argv[])
     auto endpoints = resolver.resolve(argv[1], argv[2]);
     Client c(io_context, endpoints);
     message msg;
+    msg.setSize(5);
     msg.body = {'h','e','l','l','o'};
     c.deliver(msg);
     io_context.run();
