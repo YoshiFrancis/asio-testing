@@ -14,6 +14,13 @@ struct message
   std::vector<uint8_t> body;
   std::vector<uint8_t> header_buffer;
 
+  ~message()
+  {
+    body.clear();
+    header_buffer.clear();
+    std::cout << "message destroyed!\n";
+  }
+  
   int header_size()
   {
     return sizeof(header);
@@ -30,14 +37,14 @@ struct message
     body.resize(new_size);
   }
 
-  std::vector<uint8_t>& serialize()
+  std::vector<uint8_t> serialize()
   {
     // std::string bodyStr(body.begin(), body.end());
     // std::string sizeStr = std::to_string(header.size);
     // std::cout << sizeStr <<  "," << bodyStr << "\n";
     // return sizeStr + "," + bodyStr;
     header_buffer.resize(4);
-    std::memcpy(&header_buffer, &header.size, sizeof(header.size));
+    std::memcpy(&header_buffer[0], &header.size, sizeof(header.size));
     return header_buffer;
   }
 

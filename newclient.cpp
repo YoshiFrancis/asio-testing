@@ -85,16 +85,25 @@ private:
 
   void Write()
   {
-    asio::async_write(socket_, asio::buffer(&msgQ_.front().serialize(), msgQ_.front().header_size()),
+    std::vector<uint8_t> buffer = msgQ_.front().serialize();
+    asio::async_write(socket_, asio::buffer(&buffer, 4),
     [this](std::error_code ec, size_t len)
     {
+      std::cout << "Bytes sent: " << len << "\n";
       if (!ec)
       {
-        msgQ_.pop_front();
+        std::cout << "Let's see?\n";
+
+        msgQ_.pop_front();      // causes bugs!!!! somehow freeing something
+        std::cout << "Is it me?\n";
         if (!msgQ_.empty())
         {
           Write();
         }
+      }
+      else
+      {
+        std::cout << "Writing error: " << ec.message() << "\n";
       }
     });
   }

@@ -130,7 +130,8 @@ private:
   void Write()
   {
     auto self(shared_from_this());
-    asio::async_write(socket_, asio::buffer(messageQ_.front().serialize()),
+    std::vector<uint8_t> buffer = messageQ_.front().serialize();
+    asio::async_write(socket_, asio::buffer(buffer),
     [this, self](std::error_code ec, size_t)
     {
       if (!ec)
