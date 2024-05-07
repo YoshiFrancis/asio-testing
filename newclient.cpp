@@ -47,12 +47,19 @@ private:
 
   void ReadHeader()
   {
-    asio::async_read(socket_, asio::buffer(&buffer_.header, buffer_.header_size()),
+    asio::async_read(socket_, asio::buffer(&buffer_.header_buffer, 4),
     [this](std::error_code ec, size_t len)
     {
       if (!ec)
       {
-        std::cout << "Read header size: " << buffer_.header.size << "\n";
+        std::cout << "READING HEADER: " << len << "\n";
+        // buffer_.deserialize(buffer_.header_buffer);
+        // std::cout << "Read header size: " << buffer_.header.size << "\n";
+        // ReadBody();
+      }
+      else 
+      {
+        std::cout << "Reading Header Error: " << ec.message() << "\n";
       }
     });
   }
@@ -78,7 +85,7 @@ private:
 
   void Write()
   {
-    asio::async_write(socket_, asio::buffer(&msgQ_.front().header, msgQ_.front().header_size()),
+    asio::async_write(socket_, asio::buffer(&msgQ_.front().serialize(), msgQ_.front().header_size()),
     [this](std::error_code ec, size_t len)
     {
       if (!ec)
@@ -123,7 +130,7 @@ int main(int argc, char* argv[])
   }
   catch(const std::exception& e)
   {
-    std::cerr << e.what() << '\n';
+    std::cerr << "Error" << e.what() << '\n';
   }
   return 1;
   

@@ -27,6 +27,7 @@ public:
 
   void join(conn_ptr conn)
   {
+    std::cout << "Someone has joined!\n";
     connections_.insert(conn);
   }
 
@@ -83,12 +84,21 @@ private:
   void ReadHeader()
   {
     auto self(shared_from_this());
-    asio::async_read(socket_, asio::buffer(&buffer_.header, buffer_.header_size()),
+    asio::async_read(socket_, asio::buffer(&buffer_.header_buffer, 4),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
       {
-        std::cout << "Read header size: " << buffer_.header.size << "\n";
+        std::cout << "READING HEADER: " << len << "\n";
+        // buffer_.deserialize(buffer_.header_buffer);
+        // std::cout << "Read header size: " << buffer_.header.size << "\n";
+        // buffer_.setSize(buffer_.header.size);
+        // ReadBody();
+        ReadHeader();
+      }
+      else 
+      {
+        std::cout << "Reading Header Error: " << ec.message() << "\n";
       }
     });
   }
@@ -120,7 +130,7 @@ private:
   void Write()
   {
     auto self(shared_from_this());
-    asio::async_write(socket_, asio::buffer(messageQ_.front().body),
+    asio::async_write(socket_, asio::buffer(messageQ_.front().serialize()),
     [this, self](std::error_code ec, size_t)
     {
       if (!ec)
@@ -156,6 +166,7 @@ public:
       {
         if (!ec)
         {
+          std::cout << "Successful connection!\n";
           std::make_shared<Connection>(std::move(socket), room_)->start();
         }
       });
