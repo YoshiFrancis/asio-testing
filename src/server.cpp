@@ -11,6 +11,10 @@ void server::do_accept()
 							std::cout << "Someone has joined!\n";
 							std::make_shared<connection>(std::move(socket), m_room, connection::owner::client)->start();
             }
+						else
+						{
+							std::cout << "Failed to accept!\n";
+						}
 						do_accept();
         });
 }

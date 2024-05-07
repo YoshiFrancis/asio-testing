@@ -18,7 +18,7 @@
 #include "asio.hpp"
 #include "chat_message.hpp"
 
-using asio::ip::tcp;f
+using asio::ip::tcp;
 
 //----------------------------------------------------------------------
 

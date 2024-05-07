@@ -21,6 +21,7 @@ public:
 			: m_io_context(io_context), m_socket(io_context)
 		{
 			connect(endpoint);
+			_buffer.resize(5);
 		}
 
     void disconnect();
@@ -36,6 +37,7 @@ private:
     message_queue m_msg_queue_in{};
     message_queue m_msg_queue_out{};
     message m_tmp_msg_in;
+		std::vector<uint8_t> _buffer;
     asio::io_context& m_io_context;
     tcp::socket m_socket;
 };

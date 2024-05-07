@@ -24,14 +24,20 @@ int main(int argc, char* argv[])
 		std::thread t([&io_context]() { io_context.run(); });
 		
 		std::string input{};
+		std::getline(std::cin, input);
+		/*
 		while (std::getline(std::cin, input))
 		{
 			message msg{};
 			msg << input;
 			c.deliver(msg);
 		}
-		t.join();
+		*/
+		message msg{};
+		msg << input;
+		c.deliver(msg);
 		c.disconnect();
+		t.join();
 	}
 	catch(std::exception& e)
 	{

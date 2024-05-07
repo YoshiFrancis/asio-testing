@@ -30,6 +30,7 @@ public:
     connection(tcp::socket socket, game_room& room, owner owner_type)
 			: m_socket(std::move(socket)), m_room(room), m_owner(std::move(owner_type))
 		{
+			_buffer.resize(5);
 		}
 
     void disconnect();
@@ -38,14 +39,15 @@ public:
 
 private:
     void write();
-    void readHeader();
+//    void readHeader();
     void readBody();
 
 private:
-    message_deque msg_queue_in{};
+
+		std::vector<uint8_t> tmpMsgHeaderBuffer{};
+		message tmpMsgIn{};
+		std::vector<uint8_t> _buffer;
     message_deque msg_queue_out{};
-    message tmpMsgIn{};
-		std::vector<uint8_t> tmpMsgHeaderBuffer;
     game_room m_room;
     tcp::socket m_socket;
     owner m_owner = owner::server;

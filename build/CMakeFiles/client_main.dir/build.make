@@ -69,30 +69,29 @@ include CMakeFiles/client_main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/client_main.dir/flags.make
 
-CMakeFiles/client_main.dir/client_main.cpp.o: CMakeFiles/client_main.dir/flags.make
-CMakeFiles/client_main.dir/client_main.cpp.o: /Users/fozua/Desktop/ASIOTesting/client_main.cpp
-CMakeFiles/client_main.dir/client_main.cpp.o: CMakeFiles/client_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/client_main.dir/client_main.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client_main.dir/client_main.cpp.o -MF CMakeFiles/client_main.dir/client_main.cpp.o.d -o CMakeFiles/client_main.dir/client_main.cpp.o -c /Users/fozua/Desktop/ASIOTesting/client_main.cpp
+CMakeFiles/client_main.dir/newclient.cpp.o: CMakeFiles/client_main.dir/flags.make
+CMakeFiles/client_main.dir/newclient.cpp.o: /Users/fozua/Desktop/ASIOTesting/newclient.cpp
+CMakeFiles/client_main.dir/newclient.cpp.o: CMakeFiles/client_main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/client_main.dir/newclient.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/client_main.dir/newclient.cpp.o -MF CMakeFiles/client_main.dir/newclient.cpp.o.d -o CMakeFiles/client_main.dir/newclient.cpp.o -c /Users/fozua/Desktop/ASIOTesting/newclient.cpp
 
-CMakeFiles/client_main.dir/client_main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client_main.dir/client_main.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/client_main.cpp > CMakeFiles/client_main.dir/client_main.cpp.i
+CMakeFiles/client_main.dir/newclient.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client_main.dir/newclient.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/newclient.cpp > CMakeFiles/client_main.dir/newclient.cpp.i
 
-CMakeFiles/client_main.dir/client_main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client_main.dir/client_main.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/client_main.cpp -o CMakeFiles/client_main.dir/client_main.cpp.s
+CMakeFiles/client_main.dir/newclient.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client_main.dir/newclient.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/newclient.cpp -o CMakeFiles/client_main.dir/newclient.cpp.s
 
 # Object files for target client_main
 client_main_OBJECTS = \
-"CMakeFiles/client_main.dir/client_main.cpp.o"
+"CMakeFiles/client_main.dir/newclient.cpp.o"
 
 # External object files for target client_main
 client_main_EXTERNAL_OBJECTS =
 
-client_main: CMakeFiles/client_main.dir/client_main.cpp.o
+client_main: CMakeFiles/client_main.dir/newclient.cpp.o
 client_main: CMakeFiles/client_main.dir/build.make
-client_main: src/libclient.a
 client_main: CMakeFiles/client_main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable client_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client_main.dir/link.txt --verbose=$(VERBOSE)
