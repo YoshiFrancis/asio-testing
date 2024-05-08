@@ -89,12 +89,9 @@ private:
 
   void Write()
   {
-    auto& frontMsg = msgQ_.front();
-    std::cout << "msg: " << frontMsg.data_ << "\n";
-    asio::async_write(socket_, asio::buffer(frontMsg.data_),
+    asio::async_write(socket_, asio::buffer(msgQ_.front().data_),
     [this](std::error_code ec, size_t len)
     {
-      std::cout << "Bytes sent: " << len << "\n";
       if (!ec)
       {
         msgQ_.pop_front();
@@ -133,8 +130,7 @@ int main(int argc, char* argv[])
     auto endpoints = resolver.resolve(argv[1], argv[2]);
     Client c(io_context, endpoints);
     message msg;
-    msg.body_length(5);
-    msg.data_ = "hello";
+    msg.data_ = "hellllo";
     msg.encode_header();
     c.deliver(msg);
     io_context.run();
