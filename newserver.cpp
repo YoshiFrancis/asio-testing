@@ -33,6 +33,7 @@ public:
 
   void leave(conn_ptr conn)
   {
+    std::cout << "Person has left!\n";
     connections_.erase(conn);
   }
 
@@ -98,6 +99,7 @@ private:
       else 
       {
         std::cout << "Reading Header Error: " << ec.message() << "\n";
+        room_.leave(shared_from_this());
       }
     });
   }
