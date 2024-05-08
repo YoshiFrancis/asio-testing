@@ -84,16 +84,13 @@ private:
   void ReadHeader()
   {
     auto self(shared_from_this());
-    buffer_.data_.resize(4);
-    std::cout << "Before read: " << buffer_.body_length() << "\n";
-    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
+    buffer_.data_.resize(9);
+    asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
       {
-        std::cout << "READING HEADER BYTES: " << len << "\n";
         buffer_.decode_header();
-        std::cout << "Read header size: " << buffer_.body_length() << "\n";
         ReadBody();
       }
       else 
@@ -105,22 +102,13 @@ private:
   void ReadBody()
   {
     auto self(shared_from_this());
-    std::cout << "Reading body...\n";
-    asio::async_read(socket_, asio::buffer(buffer_.body(), buffer_.body_length()),
+    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.body_length()),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
       {
-        std::cout << "Read bytes in read body: " << len << "\n";
-        std::string message_{};
-        std::cout << "Message: ";
-        std::cout << buffer_.data_.size() << "\n";
-        for (int i {0}; i < len; ++i)
-          std::cout << buffer_.body()[i] << " " << i << "\n";
-        //   message_ += buffer_.body()[i];
-        // std::cout << message_ << "\n";
-        // room_.deliverAll(buffer_);
-        // ReadHeader();
+        std::cout << buffer_.data_ << "\n";
+        ReadHeader();
       } 
       else
       {
