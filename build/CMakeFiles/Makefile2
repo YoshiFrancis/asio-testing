@@ -63,6 +63,7 @@ CMAKE_BINARY_DIR = /Users/fozua/Desktop/ASIOTesting/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/main.dir/all
 all: CMakeFiles/server_main.dir/all
 all: CMakeFiles/client_main.dir/all
 all: src/all
@@ -73,6 +74,7 @@ preinstall: src/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/main.dir/clean
 clean: CMakeFiles/server_main.dir/clean
 clean: CMakeFiles/client_main.dir/clean
 clean: src/clean
@@ -96,13 +98,39 @@ src/clean: src/CMakeFiles/client.dir/clean
 .PHONY : src/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/main.dir
+
+# All Build rule for target.
+CMakeFiles/main.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=6,7 "Built target main"
+.PHONY : CMakeFiles/main.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/main.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/fozua/Desktop/ASIOTesting/build/CMakeFiles 0
+.PHONY : CMakeFiles/main.dir/rule
+
+# Convenience name for target.
+main: CMakeFiles/main.dir/rule
+.PHONY : main
+
+# clean rule for target.
+CMakeFiles/main.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/clean
+.PHONY : CMakeFiles/main.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/server_main.dir
 
 # All Build rule for target.
 CMakeFiles/server_main.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=10,11 "Built target server_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=12,13 "Built target server_main"
 .PHONY : CMakeFiles/server_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -154,7 +182,7 @@ CMakeFiles/client_main.dir/clean:
 src/CMakeFiles/server.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=6,7,8,9 "Built target server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=8,9,10,11 "Built target server"
 .PHONY : src/CMakeFiles/server.dir/all
 
 # Build rule for subdir invocation for target.

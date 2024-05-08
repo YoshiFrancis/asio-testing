@@ -84,17 +84,18 @@ private:
   void ReadHeader()
   {
     auto self(shared_from_this());
-    asio::async_read(socket_, asio::buffer(&buffer_.header_buffer, 4),
+    buffer_.data_.resize(4);
+    std::cout << "Before read: " << buffer_.body_length() << "\n";
+    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
       {
         std::cout << "READING HEADER: " << len << "\n";
-        // buffer_.deserialize(buffer_.header_buffer);
-        // std::cout << "Read header size: " << buffer_.header.size << "\n";
-        // buffer_.setSize(buffer_.header.size);
+        std::cout << buffer_.data()[0];
+        buffer_.decode_header();
+        std::cout << "Read header size: " << buffer_.body_length() << "\n";
         // ReadBody();
-        ReadHeader();
       }
       else 
       {
@@ -105,8 +106,9 @@ private:
   void ReadBody()
   {
     auto self(shared_from_this());
-    buffer_.setSize(5);
-    asio::async_read(socket_, asio::buffer(buffer_.body, 5),
+    buffer_.body_length(5);
+    std::cout << "Reading body...\n";
+    asio::async_read(socket_, asio::buffer(buffer_.data(), 5),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
@@ -114,10 +116,10 @@ private:
         std::string message_{};
         std::cout << "Message: ";
         for (int i {0}; i < len; ++i)
-          message_ += buffer_.body[i];
+          message_ += buffer_.body()[i];
         std::cout << message_ << "\n";
-        room_.deliverAll(buffer_);
-        ReadHeader();
+        // room_.deliverAll(buffer_);
+        // ReadHeader();
       } 
       else
       {
@@ -130,8 +132,9 @@ private:
   void Write()
   {
     auto self(shared_from_this());
-    std::vector<uint8_t> buffer = messageQ_.front().serialize();
-    asio::async_write(socket_, asio::buffer(buffer),
+    buffer_.body_length(4);
+
+    asio::async_write(socket_, asio::buffer(messageQ_.front().data(), buffer_.body_length()),
     [this, self](std::error_code ec, size_t)
     {
       if (!ec)

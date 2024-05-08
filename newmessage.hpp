@@ -2,60 +2,78 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <cstdint>
 
-struct message_header
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <iterator>
+
+class message
 {
-  uint32_t size;
+public:
+  static constexpr std::size_t header_length = 4;
+  std::string data_;
+
+
+  message()
+    : body_length_(0)
+  {
+  }
+
+  const std::string* data() const
+  {
+    return &data_;
+  }
+
+  std::string* data()
+  {
+    return &data_;
+  }
+
+  std::size_t length() const
+  {
+    return header_length + body_length_;
+  }
+
+  const auto body() const
+  {
+    return std::next(data_.begin(), header_length);
+  }
+
+  auto body()
+  {
+    return std::next(data_.begin(), header_length);
+  }
+
+  std::size_t body_length() const
+  {
+    return body_length_;
+  }
+
+  void body_length(std::size_t new_length)
+  {
+    body_length_ = new_length;
+    data_.resize(body_length_);
+  }
+
+  void decode_header()
+  {
+    std::string header = data_.substr(0, 4);
+    body_length_ = std::stoi(header);
+  }
+
+  void encode_header()
+  {
+    std::string header(header_length, ' ');
+    std::sprintf(&header[0], "%4d", static_cast<int>(body_length_));
+    data_ = header + data_;
+    std::cout << "Message being encoded and sent! " << data_ << "\n";
+  }
+
+private:
+  std::size_t body_length_;
 };
 
-struct message
-{
-  message_header header;
-  std::vector<uint8_t> body;
-  std::vector<uint8_t> header_buffer;
-
-  ~message()
-  {
-    body.clear();
-    header_buffer.clear();
-    std::cout << "message destroyed!\n";
-  }
-  
-  int header_size()
-  {
-    return sizeof(header);
-  }
-
-  int body_size()
-  {
-    return body.size();
-  }
-
-  void setSize(int new_size)
-  {
-    header.size = new_size;
-    body.resize(new_size);
-  }
-
-  std::vector<uint8_t> serialize()
-  {
-    // std::string bodyStr(body.begin(), body.end());
-    // std::string sizeStr = std::to_string(header.size);
-    // std::cout << sizeStr <<  "," << bodyStr << "\n";
-    // return sizeStr + "," + bodyStr;
-    header_buffer.resize(4);
-    std::memcpy(&header_buffer[0], &header.size, sizeof(header.size));
-    return header_buffer;
-  }
-
-  void deserialize(std::vector<uint8_t> buffer)
-  {
-    // size_t first = str.find(",");
-    // std::string sizeStr = str.substr(0, first);
-    // header.size = std::stoi(sizeStr);
-    // std::string bodyStr = str.substr(first + 1, str.size());
-    // std::cout << sizeStr << "," << bodyStr << "\n";
-    // body.assign(bodyStr.begin(), bodyStr.end());
-    std::memcpy(&header.size, &buffer, buffer.size());
-  }
-};
+// TODO
+// SEND THE BODY DATA ALONG WITH THE HEADER DATA

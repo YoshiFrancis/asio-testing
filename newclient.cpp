@@ -22,12 +22,16 @@ public:
 
   void deliver(message message_)
   {
-    bool is_curr_writing = !msgQ_.empty();
-    msgQ_.push_back(message_);
-    if (!is_curr_writing)
-    {
-      Write();
-    }
+    asio::post(io_, 
+      [this, message_]
+      {
+        bool is_curr_writing = !msgQ_.empty();
+        msgQ_.push_back(message_);
+        if (!is_curr_writing)
+        {
+          Write();
+        }
+      });
   }
 
 private:
@@ -47,14 +51,14 @@ private:
 
   void ReadHeader()
   {
-    asio::async_read(socket_, asio::buffer(&buffer_.header_buffer, 4),
+    asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
     [this](std::error_code ec, size_t len)
     {
       if (!ec)
       {
         std::cout << "READING HEADER: " << len << "\n";
-        // buffer_.deserialize(buffer_.header_buffer);
-        // std::cout << "Read header size: " << buffer_.header.size << "\n";
+        buffer_.decode_header();
+        std::cout << "Read size: " << buffer_.body_length();
         // ReadBody();
       }
       else 
@@ -66,8 +70,8 @@ private:
 
   void ReadBody()
   {
-    buffer_.setSize(5);
-    asio::async_read(socket_, asio::buffer(buffer_.body),
+    buffer_.body_length(5);
+    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.body_length()),
       [this](std::error_code ec, size_t len)
       {
         if (!ec)
@@ -75,7 +79,7 @@ private:
           std::string message_{};
           for (int i {0}; i < len; ++i)
           {
-            message_ += buffer_.body[i];
+            message_ += buffer_.data()[i];
           }
           std::cout << "Message received: " << message_ << "\n";
           ReadHeader();
@@ -85,17 +89,15 @@ private:
 
   void Write()
   {
-    std::vector<uint8_t> buffer = msgQ_.front().serialize();
-    asio::async_write(socket_, asio::buffer(&buffer, 4),
+    auto& frontMsg = msgQ_.front();
+    std::cout << "msg size: " << frontMsg.data()->size() << "\n";
+    asio::async_write(socket_, asio::buffer(frontMsg.data_),
     [this](std::error_code ec, size_t len)
     {
       std::cout << "Bytes sent: " << len << "\n";
       if (!ec)
       {
-        std::cout << "Let's see?\n";
-
-        msgQ_.pop_front();      // causes bugs!!!! somehow freeing something
-        std::cout << "Is it me?\n";
+        msgQ_.pop_front();
         if (!msgQ_.empty())
         {
           Write();
@@ -131,8 +133,9 @@ int main(int argc, char* argv[])
     auto endpoints = resolver.resolve(argv[1], argv[2]);
     Client c(io_context, endpoints);
     message msg;
-    msg.setSize(5);
-    msg.body = {'h','e','l','l','o'};
+    msg.body_length(5);
+    msg.data_ = "hello";
+    msg.encode_header();
     c.deliver(msg);
     io_context.run();
 

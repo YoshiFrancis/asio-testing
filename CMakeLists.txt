@@ -10,7 +10,7 @@ include_directories(~/Documents/ASIO/asio-1.30.2/include include)
 
 add_subdirectory(src)
 
-#add_executable(main main.cpp)
+add_executable(main main.cpp)
 add_executable(server_main newserver.cpp)
 add_executable(client_main newclient.cpp)
 #target_link_libraries(server_main PUBLIC server)
