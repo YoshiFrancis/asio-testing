@@ -61,6 +61,7 @@ public:
   {
     std::string header = data_.substr(0, 4);
     body_length_ = std::stoi(header);
+    data_.resize(body_length_);
   }
 
   void encode_header()

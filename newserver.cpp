@@ -38,6 +38,7 @@ public:
 
   void deliverAll(message& msg)
   {
+    msg.encode_header();
     for (auto conn : connections_)
     {
       conn->deliver(msg);
@@ -84,7 +85,7 @@ private:
   void ReadHeader()
   {
     auto self(shared_from_this());
-    buffer_.data_.resize(9);
+    buffer_.data_.resize(4);    // size of the header
     asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
     [this, self](std::error_code ec, size_t len)
     {
@@ -108,6 +109,7 @@ private:
       if (!ec)
       {
         std::cout << buffer_.data_ << "\n";
+        room_.deliverAll(buffer_);
         ReadHeader();
       } 
       else
@@ -123,7 +125,7 @@ private:
     auto self(shared_from_this());
     buffer_.body_length(4);
 
-    asio::async_write(socket_, asio::buffer(messageQ_.front().data(), buffer_.body_length()),
+    asio::async_write(socket_, asio::buffer(messageQ_.front().data_),
     [this, self](std::error_code ec, size_t)
     {
       if (!ec)

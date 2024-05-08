@@ -51,6 +51,7 @@ private:
 
   void ReadHeader()
   {
+    buffer_.data_.resize(4);    // size of the header
     asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
     [this](std::error_code ec, size_t len)
     {
@@ -58,8 +59,7 @@ private:
       {
         std::cout << "READING HEADER: " << len << "\n";
         buffer_.decode_header();
-        std::cout << "Read size: " << buffer_.body_length();
-        // ReadBody();
+        ReadBody();
       }
       else 
       {
@@ -70,19 +70,18 @@ private:
 
   void ReadBody()
   {
-    buffer_.body_length(5);
     asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.body_length()),
       [this](std::error_code ec, size_t len)
       {
         if (!ec)
         {
-          std::string message_{};
-          for (int i {0}; i < len; ++i)
-          {
-            message_ += buffer_.data()[i];
-          }
-          std::cout << "Message received: " << message_ << "\n";
+          std::cout << "Message received: " << buffer_.data_ << "\n";
           ReadHeader();
+        }
+        else
+        {
+          std::cout << "Reading Body error: " << ec.message() << "\n";
+          socket_.close();
         }
       });
   }
