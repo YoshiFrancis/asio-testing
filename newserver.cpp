@@ -91,11 +91,10 @@ private:
     {
       if (!ec)
       {
-        std::cout << "READING HEADER: " << len << "\n";
-        std::cout << buffer_.data()[0];
+        std::cout << "READING HEADER BYTES: " << len << "\n";
         buffer_.decode_header();
         std::cout << "Read header size: " << buffer_.body_length() << "\n";
-        // ReadBody();
+        ReadBody();
       }
       else 
       {
@@ -106,18 +105,20 @@ private:
   void ReadBody()
   {
     auto self(shared_from_this());
-    buffer_.body_length(5);
     std::cout << "Reading body...\n";
-    asio::async_read(socket_, asio::buffer(buffer_.data(), 5),
+    asio::async_read(socket_, asio::buffer(buffer_.body(), buffer_.body_length()),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
       {
+        std::cout << "Read bytes in read body: " << len << "\n";
         std::string message_{};
         std::cout << "Message: ";
+        std::cout << buffer_.data_.size() << "\n";
         for (int i {0}; i < len; ++i)
-          message_ += buffer_.body()[i];
-        std::cout << message_ << "\n";
+          std::cout << buffer_.body()[i] << " " << i << "\n";
+        //   message_ += buffer_.body()[i];
+        // std::cout << message_ << "\n";
         // room_.deliverAll(buffer_);
         // ReadHeader();
       } 

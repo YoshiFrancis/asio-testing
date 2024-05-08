@@ -36,14 +36,14 @@ public:
     return header_length + body_length_;
   }
 
-  const auto body() const
+  const std::string* body() const
   {
-    return std::next(data_.begin(), header_length);
+    return &data_ + header_length;
   }
 
-  auto body()
+  std::string* body()
   {
-    return std::next(data_.begin(), header_length);
+    return &data_ + header_length;
   }
 
   std::size_t body_length() const

@@ -90,7 +90,7 @@ private:
   void Write()
   {
     auto& frontMsg = msgQ_.front();
-    std::cout << "msg size: " << frontMsg.data()->size() << "\n";
+    std::cout << "msg: " << frontMsg.data_ << "\n";
     asio::async_write(socket_, asio::buffer(frontMsg.data_),
     [this](std::error_code ec, size_t len)
     {
