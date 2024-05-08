@@ -34,6 +34,21 @@ public:
       });
   }
 
+  void close()
+  {
+    std::cout << "closing connection...\n";
+    is_connected = false;
+    asio::post(io_,
+      [this]()
+      {
+        socket_.close();
+      }
+    );
+  }
+
+public:
+  bool is_connected = true;
+
 private:
 
   void Connect(tcp::resolver::results_type endpoints)
@@ -51,8 +66,8 @@ private:
 
   void ReadHeader()
   {
-    buffer_.data_.resize(4);    // size of the header
-    asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
+    buffer_.data_.resize(buffer_.header_length);    // size of the header
+    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
     [this](std::error_code ec, size_t len)
     {
       if (!ec)
@@ -63,6 +78,7 @@ private:
       else 
       {
         std::cout << "Reading Header Error: " << ec.message() << "\n";
+        close();
       }
     });
   }
@@ -80,7 +96,7 @@ private:
         else
         {
           std::cout << "Reading Body error: " << ec.message() << "\n";
-          socket_.close();
+          close();
         }
       });
   }
@@ -101,6 +117,7 @@ private:
       else
       {
         std::cout << "Writing error: " << ec.message() << "\n";
+        close();
       }
     });
   }
@@ -129,13 +146,16 @@ int main(int argc, char* argv[])
     Client c(io_context, endpoints);
     std::thread t([&io_context](){ io_context.run(); });
     std::string input{};
-    while (std::getline(std::cin, input))
+    while (std::getline(std::cin, input) && c.is_connected)
     {
+      std::cout << "getting input...\n";
       message msg;
       msg.data_ = input;
       msg.encode_header();
       c.deliver(msg);
     }
+    if (c.is_connected)
+      c.close();
     t.join();
   }
   catch(const std::exception& e)

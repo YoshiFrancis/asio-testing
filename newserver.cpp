@@ -87,8 +87,8 @@ private:
   void ReadHeader()
   {
     auto self(shared_from_this());
-    buffer_.data_.resize(4);    // size of the header
-    asio::async_read(socket_, asio::buffer(buffer_.data(), 4),
+    buffer_.data_.resize(buffer_.header_length);    // size of the header
+    asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
     [this, self](std::error_code ec, size_t len)
     {
       if (!ec)
