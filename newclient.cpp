@@ -57,7 +57,6 @@ private:
     {
       if (!ec)
       {
-        std::cout << "READING HEADER: " << len << "\n";
         buffer_.decode_header();
         ReadBody();
       }
@@ -128,12 +127,16 @@ int main(int argc, char* argv[])
     tcp::resolver resolver(io_context);
     auto endpoints = resolver.resolve(argv[1], argv[2]);
     Client c(io_context, endpoints);
-    message msg;
-    msg.data_ = "hellllo";
-    msg.encode_header();
-    c.deliver(msg);
-    io_context.run();
-
+    std::thread t([&io_context](){ io_context.run(); });
+    std::string input{};
+    while (std::getline(std::cin, input))
+    {
+      message msg;
+      msg.data_ = input;
+      msg.encode_header();
+      c.deliver(msg);
+    }
+    t.join();
   }
   catch(const std::exception& e)
   {

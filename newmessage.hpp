@@ -70,7 +70,6 @@ public:
     body_length_ = data_.length();
     std::sprintf(&header[0], "%4d", static_cast<int>(body_length_));
     data_ = header + data_;
-    std::cout << "Message being encoded and sent! " << data_ << "\n";
   }
 
 private:

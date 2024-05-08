@@ -39,6 +39,7 @@ public:
   void deliverAll(message& msg)
   {
     msg.encode_header();
+    std::cout << connections_.size() << " number of connections to send to\n";
     for (auto conn : connections_)
     {
       conn->deliver(msg);
@@ -78,7 +79,7 @@ public:
 
 private:
   tcp::socket socket_;
-  Room room_;
+  Room& room_;
   std::deque<message> messageQ_;
   message buffer_;
 
@@ -123,8 +124,6 @@ private:
   void Write()
   {
     auto self(shared_from_this());
-    buffer_.body_length(4);
-
     asio::async_write(socket_, asio::buffer(messageQ_.front().data_),
     [this, self](std::error_code ec, size_t)
     {
@@ -163,6 +162,7 @@ public:
         {
           std::cout << "Successful connection!\n";
           std::make_shared<Connection>(std::move(socket), room_)->start();
+          Accept();
         }
       });
   }
