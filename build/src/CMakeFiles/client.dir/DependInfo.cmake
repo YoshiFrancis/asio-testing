@@ -9,7 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/fozua/Desktop/ASIOTesting/src/client.cpp" "src/CMakeFiles/client.dir/client.cpp.o" "gcc" "src/CMakeFiles/client.dir/client.cpp.o.d"
-  "/Users/fozua/Desktop/ASIOTesting/src/connection.cpp" "src/CMakeFiles/client.dir/connection.cpp.o" "gcc" "src/CMakeFiles/client.dir/connection.cpp.o.d"
+  "/Users/fozua/Desktop/ASIOTesting/src/message.cpp" "src/CMakeFiles/client.dir/message.cpp.o" "gcc" "src/CMakeFiles/client.dir/message.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

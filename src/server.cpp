@@ -1,20 +1,23 @@
 #include "server.h"
-#include "connection.h" // Assuming this is needed for connection class
+#include "connection.h"
+#include <iostream>
 
-void server::do_accept()
+Server::Server(asio::io_context& io_context, tcp::endpoint& endpoint)
+    : acceptor_(io_context, endpoint)
 {
-    m_acceptor.async_accept(
-        [this](std::error_code ec, tcp::socket socket)
+    Accept();
+}
+
+void Server::Accept()
+{
+    acceptor_.async_accept(
+    [this](std::error_code ec, tcp::socket socket)
+    {
+        if (!ec)
         {
-            if (!ec)
-            {
-							std::cout << "Someone has joined!\n";
-							std::make_shared<connection>(std::move(socket), m_room, connection::owner::client)->start();
-            }
-						else
-						{
-							std::cout << "Failed to accept!\n";
-						}
-						do_accept();
-        });
+            std::cout << "Successful connection!\n";
+            std::make_shared<Connection>(std::move(socket), room_)->start();
+            Accept();
+        }
+    });
 }

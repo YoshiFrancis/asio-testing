@@ -1,109 +1,89 @@
 #include "connection.h"
+#include <iostream>
+#include <memory>
 
-/*
-static std::vector<uint8_t> _serialize(const message& msg);
-static message_header _deserialize_header(const std::vector<uint8_t>& buffer);
-*/
+using asio::ip::tcp;
 
-void connection::disconnect()
+
+Connection::Connection(tcp::socket socket, Room& room)
+  : socket_(std::move(socket)), room_(room)
 {
-    m_room.leave(shared_from_this());
-}
-
-void connection::deliver(message msg)
-{
-	std::cout << "delivering msg to connection!\n";
-	msg_queue_out.push_back(std::move(msg));
-	if (msg_queue_out.empty())
-	{
-			write();
-	}
 }
 
-void connection::start()
+void Connection::start()
 {
-	readBody();
+  room_.join(shared_from_this());
+  ReadHeader();
 }
 
-void connection::write()
+void Connection::deliver(message msg)
 {
-	auto self(shared_from_this());
-	async_write(connection::m_socket, asio::buffer(msg_queue_out.front().body.data(), sizeof(msg_queue_out.front().body.size())),
-			[this, self](const std::error_code& ec, size_t len)
-			{
-				std::cout << "I just wrote some data...\n";
-				if (!ec)
-				{
-						msg_queue_out.pop_front();
-						write();
-				}
-				else
-				{
-					std::cout << "Writing: " << ec.message() << "\n";
-					disconnect();
-				}
-			});
-}
-/*
-void connection::readHeader()
-{
-	std::cout << "Begin reading for header\n";
-	auto self(shared_from_this());
-	tmpMsgHeaderBuffer.resize(sizeof(message_header));
-	async_read(m_socket, asio::buffer(tmpMsgHeaderBuffer.data(), sizeof(message_header)),
-			[this, self](std::error_code ec, size_t len)
-			{
-				if (!ec)
-				{
-					tmpMsgIn.header = _deserialize_header(tmpMsgHeaderBuffer);
-					tmpMsgIn.body.resize(tmpMsgIn.header.size);
-					std::cout << tmpMsgIn.header.size << " " << tmpMsgIn.size() << " " << tmpMsgIn.header.flag << " " << len << "\n";
-					readBody();
-				}
-				else
-				{
-					std::cout << "Reading Header: " << ec.message() << "\n";
-					disconnect();
-				}
-			});
-}
-*/
-void connection::readBody()
-{
-    auto self(shared_from_this());
-    async_read(m_socket, asio::buffer(_buffer.data(), 5),
-        [this, self](std::error_code ec, size_t len)
-        {
-					std::cout << "Bytes read: " << len << "\n";
-					std::cout << "Message received: ";
-					for (auto c : _buffer)
-						std::cout << c;
-					std::cout << "\n";
-					if (!ec)
-					{
-						std::cout << "Primed for reading again...\n";
-						readBody();
-					}
-					else
-					{
-						std::cout << "ReadBody: " << ec.message() << "\n";
-						disconnect();
-					}
-        });
-}
-/*
-static std::vector<uint8_t> _serialize(const message& msg)
-{
-	std::vector<uint8_t> buffer(sizeof(msg));
-	std::memcpy(buffer.data(), &msg, sizeof(msg));
-	return buffer;
+  bool is_curr_writing = !messageQ_.empty();
+  messageQ_.push_back(msg);
+  if (!is_curr_writing)
+  {
+    Write();
+  }
 }
 
-static message_header _deserialize_header(const std::vector<uint8_t>& buffer)
+void Connection::ReadHeader()
 {
-	message_header header{};
-	std::memcpy(&header, buffer.data(), sizeof(message_header));
-	return header;
+  auto self(shared_from_this());
+  buffer_.data_.resize(buffer_.header_length);    // size of the header
+  asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
+  [this, self](std::error_code ec, size_t len)
+  {
+      if (!ec)
+      {
+        buffer_.decode_header();
+        ReadBody();
+      }
+      else 
+      {
+        std::cout << "Reading Header Error: " << ec.message() << "\n";
+        room_.leave(shared_from_this());
+      }
+  });
 }
-	
-*/	
+
+void Connection::ReadBody()
+{
+  auto self(shared_from_this());
+  asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.body_length()),
+  [this, self](std::error_code ec, size_t len)
+  {
+      if (!ec)
+      {
+          std::cout << buffer_.data_ << "\n";
+          room_.deliverAll(buffer_);
+          ReadHeader();
+      } 
+      else
+      {
+          std::cout << "Reading error: " << ec.message() << "\n";
+          room_.leave(shared_from_this());
+      }
+  });
+}
+
+void Connection::Write()
+{
+  auto self(shared_from_this());
+  asio::async_write(socket_, asio::buffer(messageQ_.front().data_),
+  [this, self](std::error_code ec, size_t)
+  {
+      if (!ec)
+      {
+          messageQ_.pop_front();
+          if (!messageQ_.empty())
+          {
+              Write();
+          }
+      }
+      else
+      {
+          std::cout << "Write error: " << ec.message() << "\n";
+          room_.leave(shared_from_this());
+      }
+  });
+}

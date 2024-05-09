@@ -1,29 +1,20 @@
-#ifndef SERVER_H
-#define SERVER_H
-
-#define ASIO_STANDALONE
+#ifndef SERVER_HPP
+#define SERVER_HPP
 
 #include "asio.hpp"
-#include "game_room.h"
-#include "chat_message.hpp"
+#include "room.h"
 
 using asio::ip::tcp;
 
-class server
+class Server
 {
 public:
-    server(asio::io_context& io_context, tcp::endpoint& endpoint)
-			: m_acceptor(io_context, endpoint)
-		{
-			do_accept();
-		}
-		~server() {}
+    Server(asio::io_context& io_context, tcp::endpoint& endpoint);
+    void Accept();
 
 private:
-    tcp::acceptor m_acceptor;
-    game_room m_room;
-
-    void do_accept();
+    tcp::acceptor acceptor_;
+    Room room_;
 };
 
-#endif
+#endif // SERVER_HPP

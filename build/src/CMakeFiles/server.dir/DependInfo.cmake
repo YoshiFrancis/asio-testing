@@ -9,7 +9,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/fozua/Desktop/ASIOTesting/src/connection.cpp" "src/CMakeFiles/server.dir/connection.cpp.o" "gcc" "src/CMakeFiles/server.dir/connection.cpp.o.d"
-  "/Users/fozua/Desktop/ASIOTesting/src/game_room.cpp" "src/CMakeFiles/server.dir/game_room.cpp.o" "gcc" "src/CMakeFiles/server.dir/game_room.cpp.o.d"
+  "/Users/fozua/Desktop/ASIOTesting/src/message.cpp" "src/CMakeFiles/server.dir/message.cpp.o" "gcc" "src/CMakeFiles/server.dir/message.cpp.o.d"
+  "/Users/fozua/Desktop/ASIOTesting/src/room.cpp" "src/CMakeFiles/server.dir/room.cpp.o" "gcc" "src/CMakeFiles/server.dir/room.cpp.o.d"
   "/Users/fozua/Desktop/ASIOTesting/src/server.cpp" "src/CMakeFiles/server.dir/server.cpp.o" "gcc" "src/CMakeFiles/server.dir/server.cpp.o.d"
   )
 

@@ -69,29 +69,30 @@ include CMakeFiles/server_main.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/server_main.dir/flags.make
 
-CMakeFiles/server_main.dir/newserver.cpp.o: CMakeFiles/server_main.dir/flags.make
-CMakeFiles/server_main.dir/newserver.cpp.o: /Users/fozua/Desktop/ASIOTesting/newserver.cpp
-CMakeFiles/server_main.dir/newserver.cpp.o: CMakeFiles/server_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/server_main.dir/newserver.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server_main.dir/newserver.cpp.o -MF CMakeFiles/server_main.dir/newserver.cpp.o.d -o CMakeFiles/server_main.dir/newserver.cpp.o -c /Users/fozua/Desktop/ASIOTesting/newserver.cpp
+CMakeFiles/server_main.dir/server_main.cpp.o: CMakeFiles/server_main.dir/flags.make
+CMakeFiles/server_main.dir/server_main.cpp.o: /Users/fozua/Desktop/ASIOTesting/server_main.cpp
+CMakeFiles/server_main.dir/server_main.cpp.o: CMakeFiles/server_main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/server_main.dir/server_main.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/server_main.dir/server_main.cpp.o -MF CMakeFiles/server_main.dir/server_main.cpp.o.d -o CMakeFiles/server_main.dir/server_main.cpp.o -c /Users/fozua/Desktop/ASIOTesting/server_main.cpp
 
-CMakeFiles/server_main.dir/newserver.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server_main.dir/newserver.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/newserver.cpp > CMakeFiles/server_main.dir/newserver.cpp.i
+CMakeFiles/server_main.dir/server_main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server_main.dir/server_main.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/server_main.cpp > CMakeFiles/server_main.dir/server_main.cpp.i
 
-CMakeFiles/server_main.dir/newserver.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server_main.dir/newserver.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/newserver.cpp -o CMakeFiles/server_main.dir/newserver.cpp.s
+CMakeFiles/server_main.dir/server_main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server_main.dir/server_main.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/server_main.cpp -o CMakeFiles/server_main.dir/server_main.cpp.s
 
 # Object files for target server_main
 server_main_OBJECTS = \
-"CMakeFiles/server_main.dir/newserver.cpp.o"
+"CMakeFiles/server_main.dir/server_main.cpp.o"
 
 # External object files for target server_main
 server_main_EXTERNAL_OBJECTS =
 
-server_main: CMakeFiles/server_main.dir/newserver.cpp.o
+server_main: CMakeFiles/server_main.dir/server_main.cpp.o
 server_main: CMakeFiles/server_main.dir/build.make
+server_main: src/libserver.a
 server_main: CMakeFiles/server_main.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable server_main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server_main.dir/link.txt --verbose=$(VERBOSE)

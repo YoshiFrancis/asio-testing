@@ -1267,9 +1267,10 @@ src/CMakeFiles/server.dir/connection.cpp.o: \
   /Users/fozua/Documents/ASIO/asio-1.30.2/include/asio/writable_pipe.hpp \
   /Users/fozua/Documents/ASIO/asio-1.30.2/include/asio/write_at.hpp \
   /Users/fozua/Documents/ASIO/asio-1.30.2/include/asio/impl/write_at.hpp \
-  /Users/fozua/Desktop/ASIOTesting/include/chat_message.hpp \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/iostream \
-  /Users/fozua/Desktop/ASIOTesting/include/game_room.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /Users/fozua/Desktop/ASIOTesting/include/message.hpp \
+  /Users/fozua/Desktop/ASIOTesting/include/room.h \
+  /Users/fozua/Desktop/ASIOTesting/include/ConnectionI.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/set \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__tree
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/__tree \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/deque \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk/usr/include/c++/v1/iostream

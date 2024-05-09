@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named main
-
-# Build rule for target.
-main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
-.PHONY : main
-
-# fast build rule for target.
-main/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
-.PHONY : main/fast
-
-#=============================================================================
 # Target rules for targets named server_main
 
 # Build rule for target.
@@ -181,77 +168,53 @@ client/fast:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/build
 .PHONY : client/fast
 
-main.o: main.cpp.o
-.PHONY : main.o
+client_main.o: client_main.cpp.o
+.PHONY : client_main.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.o
-.PHONY : main.cpp.o
+client_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.o
+.PHONY : client_main.cpp.o
 
-main.i: main.cpp.i
-.PHONY : main.i
+client_main.i: client_main.cpp.i
+.PHONY : client_main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.i
-.PHONY : main.cpp.i
+client_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.i
+.PHONY : client_main.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+client_main.s: client_main.cpp.s
+.PHONY : client_main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
-.PHONY : main.cpp.s
+client_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/client_main.cpp.s
+.PHONY : client_main.cpp.s
 
-newclient.o: newclient.cpp.o
-.PHONY : newclient.o
+server_main.o: server_main.cpp.o
+.PHONY : server_main.o
 
 # target to build an object file
-newclient.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/newclient.cpp.o
-.PHONY : newclient.cpp.o
+server_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/server_main.cpp.o
+.PHONY : server_main.cpp.o
 
-newclient.i: newclient.cpp.i
-.PHONY : newclient.i
-
-# target to preprocess a source file
-newclient.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/newclient.cpp.i
-.PHONY : newclient.cpp.i
-
-newclient.s: newclient.cpp.s
-.PHONY : newclient.s
-
-# target to generate assembly for a file
-newclient.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/client_main.dir/build.make CMakeFiles/client_main.dir/newclient.cpp.s
-.PHONY : newclient.cpp.s
-
-newserver.o: newserver.cpp.o
-.PHONY : newserver.o
-
-# target to build an object file
-newserver.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/newserver.cpp.o
-.PHONY : newserver.cpp.o
-
-newserver.i: newserver.cpp.i
-.PHONY : newserver.i
+server_main.i: server_main.cpp.i
+.PHONY : server_main.i
 
 # target to preprocess a source file
-newserver.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/newserver.cpp.i
-.PHONY : newserver.cpp.i
+server_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/server_main.cpp.i
+.PHONY : server_main.cpp.i
 
-newserver.s: newserver.cpp.s
-.PHONY : newserver.s
+server_main.s: server_main.cpp.s
+.PHONY : server_main.s
 
 # target to generate assembly for a file
-newserver.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/newserver.cpp.s
-.PHONY : newserver.cpp.s
+server_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/server_main.dir/build.make CMakeFiles/server_main.dir/server_main.cpp.s
+.PHONY : server_main.cpp.s
 
 # Help Target
 help:
@@ -263,18 +226,14 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... client"
 	@echo "... client_main"
-	@echo "... main"
 	@echo "... server"
 	@echo "... server_main"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... newclient.o"
-	@echo "... newclient.i"
-	@echo "... newclient.s"
-	@echo "... newserver.o"
-	@echo "... newserver.i"
-	@echo "... newserver.s"
+	@echo "... client_main.o"
+	@echo "... client_main.i"
+	@echo "... client_main.s"
+	@echo "... server_main.o"
+	@echo "... server_main.i"
+	@echo "... server_main.s"
 .PHONY : help
 
 

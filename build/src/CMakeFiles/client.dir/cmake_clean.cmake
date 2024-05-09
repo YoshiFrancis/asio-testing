@@ -1,8 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/client.dir/client.cpp.o"
   "CMakeFiles/client.dir/client.cpp.o.d"
-  "CMakeFiles/client.dir/connection.cpp.o"
-  "CMakeFiles/client.dir/connection.cpp.o.d"
+  "CMakeFiles/client.dir/message.cpp.o"
+  "CMakeFiles/client.dir/message.cpp.o.d"
   "libclient.a"
   "libclient.pdb"
 )

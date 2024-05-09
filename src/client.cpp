@@ -1,120 +1,115 @@
-#include "client.h"
-/*
-static std::vector<uint8_t> _serialize(const message& message);
-static message_header _deserialize_header(const std::vector<uint8_t>& buffer);
-*/
-void client::connect(tcp::resolver::results_type& endpoint)
+#include "asio.hpp"
+#include "message.hpp"
+#include "client.hpp"
+#include <cstdlib>
+#include <deque>
+#include <iostream>
+#include <memory>
+#include <utility>
+
+
+using asio::ip::tcp;
+
+Client::Client(asio::io_context& io_context, tcp::resolver::results_type& endpoints)
+    : io_{io_context}, socket_(io_context)
 {
-	async_connect(m_socket, endpoint, 
-		[this](const std::error_code ec, tcp::endpoint)
-		{
-			if (!ec)
-			{
-				std::cout << "Connected\n";
-				readBody();
-			}
-			else 
-			{
-				std::cout << "Error connecting!\n";
-			}
-		});
+  Connect(endpoints);
 }
 
-void client::disconnect()
+void Client::deliver(message message_)
 {
-		asio::post(m_io_context, [this]() { m_socket.close(); });
+  message_.encode_header();
+  asio::post(io_, 
+    [this, message_]
+    {
+      bool is_curr_writing = !msgQ_.empty();
+      msgQ_.push_back(message_);
+      if (!is_curr_writing)
+      {
+        Write();
+      }
+    });
 }
 
-void client::deliver(message message)
+void Client::close()
 {
-	message.header.flag = 'P';
-	asio::post(m_io_context, 
-		[this, message]()
-		{
-			bool is_currently_writing = !m_msg_queue_out.empty();
-			m_msg_queue_out.push_back(std::move(message));
-			if (!is_currently_writing)
-			{
-				write();
-			}
-		});
+  std::cout << "closing connection...\n";
+  is_connected = false;
+  asio::post(io_,
+    [this]()
+    {
+      socket_.close();
+    }
+  );
 }
 
-void client::readHeader()
+void Client::Connect(tcp::resolver::results_type endpoints)
 {
-		std::vector<uint8_t> buffer(sizeof(message_header));
-    async_read(m_socket, asio::buffer(buffer.data(), sizeof(message_header)),
-        [this, &buffer](std::error_code ec, size_t len)
-        {
-					std::cout << len << " bytes read\n";
-					if (!ec)
-					{
-						//m_tmp_msg_in.header = _deserialize_header(buffer);
-						m_tmp_msg_in.body.resize(m_tmp_msg_in.size());
-						readBody();
-					}
-					else
-					{
-						std::cout << "Disconnecting from server due to reading header error!\n";
-						std::cout << ec.message() << "\n";
-						m_socket.close();
-					}
-        });
+  asio::async_connect(socket_, endpoints,
+    [this](std::error_code ec, tcp::endpoint)
+    {
+      if (!ec)
+      {
+        std::cout << "Successfully connected!\n";
+        ReadHeader();   // begin reading
+      }
+    });
 }
 
-void client::readBody()
+void Client::ReadHeader()
 {
-	async_read(m_socket, asio::buffer(&_buffer, 5),
-			[this](std::error_code ec, size_t len)
-			{
-				if (!ec)
-				{
-					std::cout << "Read in body!\n";
-					readBody();
-				}
-				else
-				{
-					std::cout << "Disconnecting from server due to reading body error!\n";
-					std::cout << ec.message() << "\n";
-					m_socket.close();
-				}
-			});
+  buffer_.data_.resize(buffer_.header_length);    // size of the header
+  asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.header_length),
+  [this](std::error_code ec, size_t len)
+  {
+    if (!ec)
+    {
+      buffer_.decode_header();
+      ReadBody();
+    }
+    else 
+    {
+      std::cout << "Reading Header Error: " << ec.message() << "\n";
+      close();
+    }
+  });
 }
 
-void client::write()
+void Client::ReadBody()
 {
-	_buffer = { 'B', 'e', 'l', 'l', 'o' };
-	async_write(m_socket, asio::buffer(_buffer, _buffer.size()),
-			[this](std::error_code ec, size_t len)
-			{
-			std::cout << "Sending!\n";
-			if (!ec)
-			{
-				m_msg_queue_out.pop_front();
-				if (!m_msg_queue_out.empty())
-				{
-					write();
-				}
-			}
-			else
-			{
-				std::cout << "Disconnecting from server due to sending error!\n";
-				m_socket.close();
-			}
-	});
-}
-/*
-static std::vector<uint8_t> _serialize(const message& message)
-{
-	std::vector<uint8_t> buffer(sizeof(message));
-	std::memcpy(buffer.data(), &message, sizeof(message));
-	return buffer;
+  asio::async_read(socket_, asio::buffer(buffer_.data(), buffer_.body_length()),
+    [this](std::error_code ec, size_t len)
+    {
+      if (!ec)
+      {
+        std::cout << "Message received: " << buffer_.data_ << "\n";
+        ReadHeader();
+      }
+      else
+      {
+        std::cout << "Reading Body error: " << ec.message() << "\n";
+        close();
+      }
+    });
 }
 
-static message_header _deserialize_header(const std::vector<uint8_t>& buffer)
+void Client::Write()
 {
-	message_header header{};
-	std::memcpy(&header, buffer.data(), sizeof(header));
-	return header;
+  asio::async_write(socket_, asio::buffer(msgQ_.front().data_),
+  [this](std::error_code ec, size_t len)
+  {
+    if (!ec)
+    {
+      msgQ_.pop_front();
+      if (!msgQ_.empty())
+      {
+        Write();
+      }
+    }
+    else
+    {
+      std::cout << "Writing error: " << ec.message() << "\n";
+      close();
+    }
+  });
 }
-*/

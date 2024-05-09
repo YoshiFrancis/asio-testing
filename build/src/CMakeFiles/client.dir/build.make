@@ -83,30 +83,30 @@ src/CMakeFiles/client.dir/client.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client.dir/client.cpp.s"
 	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/client.cpp -o CMakeFiles/client.dir/client.cpp.s
 
-src/CMakeFiles/client.dir/connection.cpp.o: src/CMakeFiles/client.dir/flags.make
-src/CMakeFiles/client.dir/connection.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/connection.cpp
-src/CMakeFiles/client.dir/connection.cpp.o: src/CMakeFiles/client.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/client.dir/connection.cpp.o"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/client.dir/connection.cpp.o -MF CMakeFiles/client.dir/connection.cpp.o.d -o CMakeFiles/client.dir/connection.cpp.o -c /Users/fozua/Desktop/ASIOTesting/src/connection.cpp
+src/CMakeFiles/client.dir/message.cpp.o: src/CMakeFiles/client.dir/flags.make
+src/CMakeFiles/client.dir/message.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/message.cpp
+src/CMakeFiles/client.dir/message.cpp.o: src/CMakeFiles/client.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/client.dir/message.cpp.o"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/client.dir/message.cpp.o -MF CMakeFiles/client.dir/message.cpp.o.d -o CMakeFiles/client.dir/message.cpp.o -c /Users/fozua/Desktop/ASIOTesting/src/message.cpp
 
-src/CMakeFiles/client.dir/connection.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client.dir/connection.cpp.i"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/src/connection.cpp > CMakeFiles/client.dir/connection.cpp.i
+src/CMakeFiles/client.dir/message.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/client.dir/message.cpp.i"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/src/message.cpp > CMakeFiles/client.dir/message.cpp.i
 
-src/CMakeFiles/client.dir/connection.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client.dir/connection.cpp.s"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/connection.cpp -o CMakeFiles/client.dir/connection.cpp.s
+src/CMakeFiles/client.dir/message.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/client.dir/message.cpp.s"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/message.cpp -o CMakeFiles/client.dir/message.cpp.s
 
 # Object files for target client
 client_OBJECTS = \
 "CMakeFiles/client.dir/client.cpp.o" \
-"CMakeFiles/client.dir/connection.cpp.o"
+"CMakeFiles/client.dir/message.cpp.o"
 
 # External object files for target client
 client_EXTERNAL_OBJECTS =
 
 src/libclient.a: src/CMakeFiles/client.dir/client.cpp.o
-src/libclient.a: src/CMakeFiles/client.dir/connection.cpp.o
+src/libclient.a: src/CMakeFiles/client.dir/message.cpp.o
 src/libclient.a: src/CMakeFiles/client.dir/build.make
 src/libclient.a: src/CMakeFiles/client.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libclient.a"

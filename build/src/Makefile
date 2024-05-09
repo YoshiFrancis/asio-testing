@@ -174,7 +174,6 @@ connection.o: connection.cpp.o
 # target to build an object file
 connection.cpp.o:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.o
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.o
 .PHONY : connection.cpp.o
 
 connection.i: connection.cpp.i
@@ -183,7 +182,6 @@ connection.i: connection.cpp.i
 # target to preprocess a source file
 connection.cpp.i:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.i
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.i
 .PHONY : connection.cpp.i
 
 connection.s: connection.cpp.s
@@ -192,32 +190,58 @@ connection.s: connection.cpp.s
 # target to generate assembly for a file
 connection.cpp.s:
 	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/connection.cpp.s
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/connection.cpp.s
 .PHONY : connection.cpp.s
 
-game_room.o: game_room.cpp.o
-.PHONY : game_room.o
+message.o: message.cpp.o
+.PHONY : message.o
 
 # target to build an object file
-game_room.cpp.o:
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/game_room.cpp.o
-.PHONY : game_room.cpp.o
+message.cpp.o:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/message.cpp.o
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/message.cpp.o
+.PHONY : message.cpp.o
 
-game_room.i: game_room.cpp.i
-.PHONY : game_room.i
+message.i: message.cpp.i
+.PHONY : message.i
 
 # target to preprocess a source file
-game_room.cpp.i:
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/game_room.cpp.i
-.PHONY : game_room.cpp.i
+message.cpp.i:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/message.cpp.i
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/message.cpp.i
+.PHONY : message.cpp.i
 
-game_room.s: game_room.cpp.s
-.PHONY : game_room.s
+message.s: message.cpp.s
+.PHONY : message.s
 
 # target to generate assembly for a file
-game_room.cpp.s:
-	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/game_room.cpp.s
-.PHONY : game_room.cpp.s
+message.cpp.s:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/message.cpp.s
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/client.dir/build.make src/CMakeFiles/client.dir/message.cpp.s
+.PHONY : message.cpp.s
+
+room.o: room.cpp.o
+.PHONY : room.o
+
+# target to build an object file
+room.cpp.o:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/room.cpp.o
+.PHONY : room.cpp.o
+
+room.i: room.cpp.i
+.PHONY : room.i
+
+# target to preprocess a source file
+room.cpp.i:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/room.cpp.i
+.PHONY : room.cpp.i
+
+room.s: room.cpp.s
+.PHONY : room.s
+
+# target to generate assembly for a file
+room.cpp.s:
+	cd /Users/fozua/Desktop/ASIOTesting/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/server.dir/build.make src/CMakeFiles/server.dir/room.cpp.s
+.PHONY : room.cpp.s
 
 server.o: server.cpp.o
 .PHONY : server.o
@@ -259,9 +283,12 @@ help:
 	@echo "... connection.o"
 	@echo "... connection.i"
 	@echo "... connection.s"
-	@echo "... game_room.o"
-	@echo "... game_room.i"
-	@echo "... game_room.s"
+	@echo "... message.o"
+	@echo "... message.i"
+	@echo "... message.s"
+	@echo "... room.o"
+	@echo "... room.i"
+	@echo "... room.s"
 	@echo "... server.o"
 	@echo "... server.i"
 	@echo "... server.s"

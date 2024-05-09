@@ -83,19 +83,19 @@ src/CMakeFiles/server.dir/connection.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/connection.cpp.s"
 	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/connection.cpp -o CMakeFiles/server.dir/connection.cpp.s
 
-src/CMakeFiles/server.dir/game_room.cpp.o: src/CMakeFiles/server.dir/flags.make
-src/CMakeFiles/server.dir/game_room.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/game_room.cpp
-src/CMakeFiles/server.dir/game_room.cpp.o: src/CMakeFiles/server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/server.dir/game_room.cpp.o"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/server.dir/game_room.cpp.o -MF CMakeFiles/server.dir/game_room.cpp.o.d -o CMakeFiles/server.dir/game_room.cpp.o -c /Users/fozua/Desktop/ASIOTesting/src/game_room.cpp
+src/CMakeFiles/server.dir/room.cpp.o: src/CMakeFiles/server.dir/flags.make
+src/CMakeFiles/server.dir/room.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/room.cpp
+src/CMakeFiles/server.dir/room.cpp.o: src/CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/server.dir/room.cpp.o"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/server.dir/room.cpp.o -MF CMakeFiles/server.dir/room.cpp.o.d -o CMakeFiles/server.dir/room.cpp.o -c /Users/fozua/Desktop/ASIOTesting/src/room.cpp
 
-src/CMakeFiles/server.dir/game_room.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/game_room.cpp.i"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/src/game_room.cpp > CMakeFiles/server.dir/game_room.cpp.i
+src/CMakeFiles/server.dir/room.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/room.cpp.i"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/src/room.cpp > CMakeFiles/server.dir/room.cpp.i
 
-src/CMakeFiles/server.dir/game_room.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/game_room.cpp.s"
-	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/game_room.cpp -o CMakeFiles/server.dir/game_room.cpp.s
+src/CMakeFiles/server.dir/room.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/room.cpp.s"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/room.cpp -o CMakeFiles/server.dir/room.cpp.s
 
 src/CMakeFiles/server.dir/server.cpp.o: src/CMakeFiles/server.dir/flags.make
 src/CMakeFiles/server.dir/server.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/server.cpp
@@ -111,21 +111,37 @@ src/CMakeFiles/server.dir/server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/server.cpp.s"
 	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/server.cpp -o CMakeFiles/server.dir/server.cpp.s
 
+src/CMakeFiles/server.dir/message.cpp.o: src/CMakeFiles/server.dir/flags.make
+src/CMakeFiles/server.dir/message.cpp.o: /Users/fozua/Desktop/ASIOTesting/src/message.cpp
+src/CMakeFiles/server.dir/message.cpp.o: src/CMakeFiles/server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/server.dir/message.cpp.o"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/server.dir/message.cpp.o -MF CMakeFiles/server.dir/message.cpp.o.d -o CMakeFiles/server.dir/message.cpp.o -c /Users/fozua/Desktop/ASIOTesting/src/message.cpp
+
+src/CMakeFiles/server.dir/message.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/server.dir/message.cpp.i"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/fozua/Desktop/ASIOTesting/src/message.cpp > CMakeFiles/server.dir/message.cpp.i
+
+src/CMakeFiles/server.dir/message.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/server.dir/message.cpp.s"
+	cd /Users/fozua/Desktop/ASIOTesting/build/src && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/fozua/Desktop/ASIOTesting/src/message.cpp -o CMakeFiles/server.dir/message.cpp.s
+
 # Object files for target server
 server_OBJECTS = \
 "CMakeFiles/server.dir/connection.cpp.o" \
-"CMakeFiles/server.dir/game_room.cpp.o" \
-"CMakeFiles/server.dir/server.cpp.o"
+"CMakeFiles/server.dir/room.cpp.o" \
+"CMakeFiles/server.dir/server.cpp.o" \
+"CMakeFiles/server.dir/message.cpp.o"
 
 # External object files for target server
 server_EXTERNAL_OBJECTS =
 
 src/libserver.a: src/CMakeFiles/server.dir/connection.cpp.o
-src/libserver.a: src/CMakeFiles/server.dir/game_room.cpp.o
+src/libserver.a: src/CMakeFiles/server.dir/room.cpp.o
 src/libserver.a: src/CMakeFiles/server.dir/server.cpp.o
+src/libserver.a: src/CMakeFiles/server.dir/message.cpp.o
 src/libserver.a: src/CMakeFiles/server.dir/build.make
 src/libserver.a: src/CMakeFiles/server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libserver.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/fozua/Desktop/ASIOTesting/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libserver.a"
 	cd /Users/fozua/Desktop/ASIOTesting/build/src && $(CMAKE_COMMAND) -P CMakeFiles/server.dir/cmake_clean_target.cmake
 	cd /Users/fozua/Desktop/ASIOTesting/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/server.dir/link.txt --verbose=$(VERBOSE)
 
